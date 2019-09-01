@@ -2,6 +2,7 @@ package CNV_Relationnel.cnv.controller;
 
 import CNV_Relationnel.cnv.model.Gene;
 import CNV_Relationnel.cnv.service.GeneService;
+import CNV_Relationnel.cnv.service.Impl.GeneServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,12 @@ public class GeneController {
     private static final Logger logger = LoggerFactory.getLogger(GeneController.class);
 
     @Autowired
-    private GeneService geneService;
+    private GeneServiceImpl geneService;
 
     @GetMapping(value = "/genes")
     public ResponseEntity<Collection<Gene>> getAllGenes() {
         Collection<Gene> genes = geneService.getAllGenes();
-        logger.info("liste des genes : " + genes.toString());
+       // logger.info("liste des genes : " + genes.toString());
         return new ResponseEntity<Collection<Gene>>(genes, HttpStatus.FOUND);
     }
     // URL not working !

@@ -1,19 +1,20 @@
 package CNV_Relationnel.cnv.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+//import lombok.*;
 
-import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Objects;
+import javax.persistence.*;
 
 @Entity
-@Data
+/*@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode*/
 public class ChromosomePlot implements Serializable {
 
     @Id
@@ -22,7 +23,39 @@ public class ChromosomePlot implements Serializable {
 
     @OneToMany
     @JoinColumn(name ="chromosomePlotId")
+    @JsonIgnore
     private Collection<LineChromosomePlot> chromosomePlotLines;
 
+    public Long getChromosomePlotId() {
+        return chromosomePlotId;
+    }
 
+    public Collection<LineChromosomePlot> getChromosomePlotLines() {
+        return chromosomePlotLines;
+    }
+
+    public void setChromosomePlotLines(Collection<LineChromosomePlot> chromosomePlotLines) {
+        this.chromosomePlotLines = chromosomePlotLines;
+    }
+
+    public ChromosomePlot() {
+    }
+
+    public ChromosomePlot(Collection<LineChromosomePlot> chromosomePlotLines) {
+        this.chromosomePlotLines = chromosomePlotLines;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ChromosomePlot that = (ChromosomePlot) o;
+        return Objects.equals(chromosomePlotId, that.chromosomePlotId) &&
+                Objects.equals(chromosomePlotLines, that.chromosomePlotLines);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(chromosomePlotId, chromosomePlotLines);
+    }
 }

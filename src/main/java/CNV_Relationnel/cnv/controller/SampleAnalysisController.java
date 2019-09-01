@@ -2,6 +2,7 @@ package CNV_Relationnel.cnv.controller;
 
 
 import CNV_Relationnel.cnv.model.SampleAnalysis;
+import CNV_Relationnel.cnv.service.Impl.SampleAnalysisServiceImpl;
 import CNV_Relationnel.cnv.service.SampleAnalysisService;
 import CNV_Relationnel.cnv.webObject.SampleAnalysisWebObj;
 import org.slf4j.Logger;
@@ -17,14 +18,14 @@ import java.util.Collection;
 import java.util.List;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8282")
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/sampleAnalysis/*")
 public class SampleAnalysisController {
 
     private static final Logger logger = LoggerFactory.getLogger(SampleAnalysisController.class);
 
     @Autowired
-    private SampleAnalysisService sampleAnalysisService;
+    private SampleAnalysisServiceImpl sampleAnalysisService;
 
 
     /* * Import data from collection SampleAnalysis to SampleAnalysisWebObj without info on collections :
@@ -36,6 +37,7 @@ public class SampleAnalysisController {
      * set others methods*/
 
 
+
     private SampleAnalysisWebObj convertToWebObject(SampleAnalysis sa) {
         SampleAnalysisWebObj resSawb = new SampleAnalysisWebObj();
         resSawb.setSampleAnalysisId(sa.getSampleAnalysisId());
@@ -44,14 +46,15 @@ public class SampleAnalysisController {
     }
 
     @GetMapping("/webSampleAnalysis")
-    public ResponseEntity<List<SampleAnalysisWebObj>> getWebSampleAnalysis(){
+    public ResponseEntity<List<SampleAnalysisWebObj>> getWebSampleAnalysis() {
         List<SampleAnalysisWebObj> resSampleAnalysisWebObj = new ArrayList<SampleAnalysisWebObj>();
-        for(SampleAnalysis sa : sampleAnalysisService.getAllSamplesAnalysis()) {
+        for (SampleAnalysis sa : sampleAnalysisService.getAllSamplesAnalysis()) {
             resSampleAnalysisWebObj.add(convertToWebObject(sa));
         }
         return new ResponseEntity<List<SampleAnalysisWebObj>>(resSampleAnalysisWebObj, HttpStatus.FOUND);
 
     }
+
 
     @GetMapping("/samplesAnalysis")
     public ResponseEntity<Collection<SampleAnalysis>> getAllSamplesAnalysis(){
