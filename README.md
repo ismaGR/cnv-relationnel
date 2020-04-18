@@ -1,5 +1,5 @@
 # cnv-relationnel
-CNV functionality for ODIN portal.
+CNV functionality for ODIN project portal.
 
 The database will be implemented in Mysql using Spring Boot Tool for this module.
 
